@@ -11,6 +11,7 @@ heart_data_factor$sop <- factor(heart_data$sop)
 heart_data_factor$thal <- factor(heart_data$thal)
 heart_data_factor$hdap <- factor(heart_data$hdap)
 
+library(gRim)
 msat <- dmod( ~.^., data=heart_data_factor )
 mnew1 <- stepwise( msat, details=1, k=2 ) # use aic
 plot( mnew1 )
