@@ -22,7 +22,25 @@ plot(sht)
 
 library(bnlearn)
 
-
-res <- hc(heart_data)
+res <- hc(heart_data, score = "aic")
 plot(res)
+
+acyclic(res)
+
+bn.gs <- gs(heart_data)
+plot(bn.gs)
+
+bn2 <- iamb(heart_data)
+plot(bn2)
+bn3 <- fast.iamb(heart_data)
+plot(bn3)
+bn4 <- inter.iamb(heart_data)
+plot(bn4)
+
+library(graphwiz)
+
+par(mfrow = c(1,2))
+plot(bn.gs, main = "Constraint-based algorithms")
+plot(res, main = "Hill-Climbing")
+
 
