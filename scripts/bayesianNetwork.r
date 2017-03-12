@@ -27,10 +27,10 @@ par(mfrow=c(1,2)); plot( ug1 ); plot( ug2 )
 
 #Create Bayesian networks from (graph, data):
 bn1 <- compile( grain( ug1, data=heart_data_factor, smooth=0.1 )); 
-bn1
+plot(bn1)
 
 bn2 <- compile( grain( ug2, data=heart_data_factor, smooth=0.1 )); 
-bn2
+plot(bn2)
 
 #querygrain( bn1, "sex")
 
@@ -38,8 +38,6 @@ bn2
 # alternative form
 highest_prob <- 0.0
 lowest_prob <- 1.0
-best_case = list()
-worst_case = list()
 for(loop_sex in levels(heart_data_factor$sex)){
   for(loop_cpt in levels(heart_data_factor$cpt)){
     for(loop_fbs in levels(heart_data_factor$fbs)){
@@ -52,6 +50,7 @@ for(loop_sex in levels(heart_data_factor$sex)){
               curr_prob <- curr_prob$hdap[[2]]
               if(curr_prob > highest_prob){
                 highest_prob <- curr_prob
+                worst_case = list()
                 worst_case[["sex"]] <- loop_sex
                 worst_case[["cpt"]] <- loop_cpt
                 worst_case[["fbs"]] <- loop_fbs
@@ -62,6 +61,7 @@ for(loop_sex in levels(heart_data_factor$sex)){
               }
               if(curr_prob < lowest_prob){
                 lowest_prob <- curr_prob
+                best_case = list()
                 best_case[["sex"]] <- loop_sex
                 best_case[["cpt"]] <- loop_cpt
                 best_case[["fbs"]] <- loop_fbs

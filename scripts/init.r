@@ -10,22 +10,21 @@ heart_data$thal <- factor(heart_data$thal)
 heart_data$hdap <- factor(heart_data$hdap)
 
 library(bnlearn)
-<<<<<<< HEAD
 
-res <- hc(heart_data, score = "aic")
-plot(res)
-
-acyclic(res)
+bn.hc <- hc(heart_data, score = "aic")
+plot(bn.hc)
 
 bn.gs <- gs(heart_data)
 plot(bn.gs)
 
 bn2 <- iamb(heart_data)
 plot(bn2)
-bn3 <- fast.iamb(heart_data)
+bn3 <- inter.iamb(heart_data)
 plot(bn3)
-bn4 <- inter.iamb(heart_data)
-plot(bn4)
+
+compare(bn.gs, bn2)
+compare(bn.gs, bn3)
+compare(bn.gs, bn.hc)
 
 library(graphwiz)
 
@@ -33,12 +32,12 @@ par(mfrow = c(1,2))
 plot(bn.gs, main = "Constraint-based algorithms")
 plot(res, main = "Hill-Climbing")
 
-
-=======
 res <- hc(heart_data)
 plot(res)
 
 fittedbn <- bn.fit(res, data = heart_data)
+
+age <- fittedbn$age
 print(fittedbn$hdap)
 
 # CLEAR CONSOLE COMMAND
@@ -83,4 +82,3 @@ print(fittedbn$hdap)
 #     max_prob <- curr_prob
 #   }
 # }
->>>>>>> 15944912e83896a32fd73595f0fb951fa891878d
