@@ -33,3 +33,10 @@ vignettes/*.pdf
 *.knit.md
 .Rproj.user
 *.Rproj
+*.aux
+*.bbl
+*.blg
+*.log
+*.pdf
+*.gz
+*.bak
