@@ -25,6 +25,26 @@ ug1 <- ugList( terms( mnew1 ) )
 ug2 <- ugList( terms( mnew2 ) )
 par(mfrow=c(1,2)); plot( ug1 ); plot( ug2 )
 
+bn.gs <- gs(heart_data_factor); bn.gs;
+bn2 <- iamb(heart_data_factor); bn2;
+bn3 <- fast.iamb(heart_data_factor); bn3;
+bn4 <- inter.iamb(heart_data_factor); bn4;
+bn.hc <- hc(heart_data_factor, score = "aic"); 
+bn.hc;
+
+compare(bn.gs, bn2);
+compare(bn.gs, bn3);
+compare(bn.gs, bn4);
+compare(bn.hc, bn.gs);
+
+graphviz.plot(bn.gs);
+graphviz.plot(bn2);
+graphviz.plot(bn3);
+graphviz.plot(bn4);
+highlight.opts <- list(nodes = c("hdap", "sex"), arcs = c("sex", "hdap"), col = "red", fill = "grey");
+graphviz.plot(bn.hc, highlight = highlight.opts);
+
+
 #Create Bayesian networks from (graph, data):
 bn1 <- compile( grain( ug1, data=heart_data_factor, smooth=0.1 )); 
 plot(bn1)
