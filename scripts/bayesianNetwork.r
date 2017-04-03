@@ -5,7 +5,7 @@ colnames(heart_data_factor) <- c("sex", "cpt", "fbs", "rest.ecg", "eia", "sop", 
 heart_data_factor$sex <- factor(heart_data$sex)
 heart_data_factor$cpt <- factor(heart_data$cpt)
 heart_data_factor$fbs <- factor(heart_data$fbs)
-heart_data_factor$rest.ecg <- factor(heart_data$rest.ecg)
+heart_data_factor$recg <- factor(heart_data$rest.ecg)
 heart_data_factor$eia <- factor(heart_data$eia)
 heart_data_factor$sop <- factor(heart_data$sop)
 heart_data_factor$thal <- factor(heart_data$thal)
@@ -37,11 +37,12 @@ compare(bn.gs, bn3);
 compare(bn.gs, bn4);
 compare(bn.hc, bn.gs);
 
+library(bnlearn);
 graphviz.plot(bn.gs);
 graphviz.plot(bn2);
 graphviz.plot(bn3);
 graphviz.plot(bn4);
-highlight.opts <- list(nodes = c("hdap", "sex"), arcs = c("sex", "hdap"), col = "red", fill = "grey");
+highlight.opts <- list(nodes = c("hdap"), fill = "grey");
 graphviz.plot(bn.hc, highlight = highlight.opts);
 
 
@@ -61,11 +62,11 @@ lowest_prob <- 1.0
 for(loop_sex in levels(heart_data_factor$sex)){
   for(loop_cpt in levels(heart_data_factor$cpt)){
     for(loop_fbs in levels(heart_data_factor$fbs)){
-      for(loop_rest.ecg in levels(heart_data_factor$rest.ecg)){
+      for(loop_recg in levels(heart_data_factor$recg)){
         for(loop_sop in levels(heart_data_factor$sop)){
           for(loop_eia in levels(heart_data_factor$eia)){
             for(loop_thal in levels(heart_data_factor$thal)){
-              z<-setEvidence( bn1, evidence=list(sex=loop_sex,cpt=loop_cpt,fbs=loop_fbs,rest.ecg=loop_rest.ecg,sop=loop_sop,eia=loop_eia,thal=loop_thal))
+              z<-setEvidence( bn1, evidence=list(sex=loop_sex,cpt=loop_cpt,fbs=loop_fbs,rest.ecg=loop_recg,sop=loop_sop,eia=loop_eia,thal=loop_thal))
               curr_prob <- querygrain( z, "hdap")
               curr_prob <- curr_prob$hdap[[2]]
               if(curr_prob > highest_prob){
@@ -74,7 +75,7 @@ for(loop_sex in levels(heart_data_factor$sex)){
                 worst_case[["sex"]] <- loop_sex
                 worst_case[["cpt"]] <- loop_cpt
                 worst_case[["fbs"]] <- loop_fbs
-                worst_case[["rest.ecg"]] <- loop_rest.ecg
+                worst_case[["recg"]] <- loop_recg
                 worst_case[["sop"]] <- loop_sop
                 worst_case[["eia"]] <- loop_eia
                 worst_case[["thal"]] <- loop_thal
@@ -85,7 +86,7 @@ for(loop_sex in levels(heart_data_factor$sex)){
                 best_case[["sex"]] <- loop_sex
                 best_case[["cpt"]] <- loop_cpt
                 best_case[["fbs"]] <- loop_fbs
-                best_case[["rest.ecg"]] <- loop_rest.ecg
+                best_case[["recg"]] <- loop_recg
                 best_case[["sop"]] <- loop_sop
                 best_case[["eia"]] <- loop_eia
                 best_case[["thal"]] <- loop_thal
