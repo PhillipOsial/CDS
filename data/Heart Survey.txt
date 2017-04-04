@@ -1,0 +1,53 @@
+README for the Version 3.6.2 of the Dataverse Network application.
+
+
+_Data-set Replication Citation:_
+
+1.  Citation for the full data set you chose_:
+
+    Canadian Heart Health Database Centre, 1997, "Canadian Heart Health Survey", http://dx.doi.org/10.7939/DVN/10591 UNF:5:iB2LfjdYTgmMmn0PjSao5g== V2 [Version]
+
+2.  Citation for this subset you chose_:
+
+    Canadian Heart Health Database Centre, 1997, "Canadian Heart Health Survey", http://dx.doi.org/10.7939/DVN/10591 UNF:5:iB2LfjdYTgmMmn0PjSao5g== V2 [Version]
+    PROV,AREA,SEX,GPAGE2,EDUCYRS,EDUC,INCOME,SYSCAT,DIASCAT,HYPER,HGTC,WGTC,BMICAT,TCHOLCAT,HDL,LDL,SMOKECAT,SEDENT,ALCOHOL,DIABCAT,BPHIGH,BPRXNOW,BPRXEVER,DIABET,ALCEVER,ALC12MTH,ALCNUM,WGTLOSE,WGTNOW,HGT,WGT,SALTCOOK,SALTFOOD,EXER,EVERHA,EVERSTR,OTHHD,RXHEART [VarGrp/@var(DDI)];
+    UNF:5:v48hNkCqWLvXt9Xh9TE+3A==
+
+3.  Row selection criteria for the subset used in your analysis_:
+
+    variables: PROV,AREA,SEX,GPAGE2,EDUCYRS,EDUC,INCOME,SYSCAT,DIASCAT,HYPER,HGTC,WGTC,BMICAT,TCHOLCAT,HDL,LDL,SMOKECAT,SEDENT,ALCOHOL,DIABCAT,BPHIGH,BPRXNOW,BPRXEVER,DIABET,ALCEVER,ALC12MTH,ALCNUM,WGTLOSE,WGTNOW,HGT,WGT,SALTCOOK,SALTFOOD,EXER,EVERHA,EVERSTR,OTHHD,RXHEART
+
+
+_To Get Support_
+
+    You may want to consult the 'Finding and Using Data' section of the Users Guides on the Dataverse
+    Network Project website first:
+
+        http://dataverse.library.ualberta.ca/guides/dataverse-user-main.html#finding-and-using-data
+
+    especially, the 'Tabular Data' page of the 'Subset and Analyze' section:
+
+        http://dataverse.library.ualberta.ca/guides/dataverse-user-main.html#tabular-data
+
+    If you need to contact us about results of this modeling request,
+    besides your questions and comments, please include the following
+    request-tracking information:
+
+    ************************************************************
+        PID=>314783
+        Date=>2017-04-03 18:00:01.178
+        Host=>localhost
+        R_version=>version 3.3.3 (2017-03-06)
+        Title=>Canadian Heart Health Survey
+        No=>409
+        URL=>/dv/chhs
+        Type=>subset
+    ************************************************************
+
+    Thank you for using the Dataverse Network.
+
+    Dataverse Network Project
+    dvn_support@help.hmdc.harvard.edu
+    http://thedata.org/contact
+
+
