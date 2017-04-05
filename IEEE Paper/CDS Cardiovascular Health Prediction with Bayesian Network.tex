@@ -67,18 +67,18 @@ pgosial@lakeheadu.ca, kakauran@lakeheadu.ca}}
 \maketitle
 
 \begin{abstract}
-In Canadian society, the ubiquity of cardiovascular disease has led to it becoming the second leading cause of death for Canadians. In this paper, we examine the process of creating a clinical decision support system using a Bayesian Network to model and identify the risk factors associated with a diagnosis of cardiovascular disease. With this research, we hope to increase the preventative techniques available to Canadian citizens and provide a better quality of life for all.
+In Canadian society, the ubiquity of cardiovascular disease has led to it becoming the second leading cause of death for Canadians. In this paper, we examine the process of creating a clinical decision support system (CDSS) using a Bayesian Network to model and identify the risk factors associated with a diagnosis of cardiovascular disease. With this research, we hope to increase the preventative techniques available to Canadian citizens and provide a better quality of life for all.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 
 \section{Introduction}
-Cardiovascular disease (CVD) is part of a category of diseases involving the heart and blood vessels that is now the \textit{second leading} cause of death in Canada \cite{StatsCan}. As a result of its increasing prevalence, large amounts of research is being conducted to try and bring down the instances of death and increase the health of Canadians from coast-to-coast. To accomplish our analysis, we will create a \textit{Bayesian Network} to model our clinical decision making process (CDMS). Afterwards, we evaluate our CDMS using a receiver operating characteristic (ROC) curve and determine the area under the curve (AUC).  
+Cardiovascular disease (CVD) is part of a category of diseases involving the heart and blood vessels that is now the \textit{second leading} cause of death in Canada \cite{StatsCan}. As a result of its increasing prevalence, large amounts of research is being conducted to try and bring down the instances of death and increase the health of Canadians from coast-to-coast. To accomplish our analysis, we will create a \textit{Bayesian Network} (BN) to model our CDSS. Afterwards, we evaluate our CDSS using a receiver operating characteristic (ROC) curve and determine the area under the curve (AUC).  
 
 \section{Research Motivation}
-Nowadays there is a large focus in research in what is called Big Data Analytics (BDA). BDA is the process of analyzing large amounts of data to find hidden patterns and meaning within. Examples of where BDA is making large improvements are the pharmaceutical industry where BDA is allowing researchers to focus on the medications that will be most likely to succeed and in the cases of disease and viral outbreaks where BDA is mapping out the genetic components that are able to stop the diseases from spreading. Our end goal for this research also focuses on the health industry but looks at creating a process for predicting cardiovascular disease in order to hopefully prevent it in the overall Canadian population. An example applicable to our domain follows:
+Nowadays there is a large focus in research in what is called Big Data Analytics (BDA). BDA is the process of analyzing large amounts of data to find hidden patterns and meaning within. Examples of where BDA is making large improvements are the pharmaceutical industry where BDA is allowing researchers to focus on the medications that will be most likely to succeed and in the cases of disease and viral outbreaks where BDA is mapping out the genetic components that are able to stop the diseases from spreading. Our end goal for this research also focuses on the health industry but looks at creating a process for predicting CVD in order to hopefully prevent it in the overall Canadian population. An example applicable to our domain follows:
 \\
-\indent A person goes for a checkup at their family physician. At the checkup they are given a survey to fill out and are run through the usual set of tests. The results from the survey and the tests are then run through the clinical decision making process to determine problem areas of the individual that put them at risk for CVD. Using the results, the individual can take that knowledge and change his lifestyle habits to decrease his likelihood of CVD.
+\indent A person goes for a checkup at their family physician. At the checkup they are given a survey to fill out and are run through the usual set of tests. The results from the survey and the tests are then run through the CDSS to determine problem areas of the individual that put them at risk for CVD. Using the results, the individual can take that knowledge and change their lifestyle habits to decrease the likelihood of CVD.
 \\
 \indent This one example shows a possible usage for the research that will be gained here.
 
@@ -89,17 +89,13 @@ Looking at what was proposed by Sultana et al \cite{7873142}, they analyzed seve
    Rosli et al \cite{7808353} proposes another mobile detection system for heart disease but this time looking for early warning signs of fatal heart disease. Their system also uses an Arduino micro-controller to measure the heart rate of the individual. Their system uses photoplethysmography technique and utilizes a GSM shield module to act as an SMS interface. In a survey to test the effectiveness of their system, 100\% of respondents agreed that their system is relevant for the industry.
 \section{Data Description}
 Our research focused on two datasets. We first examined the standard statlog heart disease dataset from UCI machine learning repository \cite{StatlogHeart}.  The data attributes can be seen in Table \ref{table_statlogheart}.  The data contains multivariate characteristics consisting of both numerical and categorical data types.
-This dataset also features no missing values, contains 270 patient instances with 14 attributes, and its primary purpose is to be used for prediction of heart disease by using the first 13 attributes as predictors of the 14\textsuperscript{th} attribute.
-Our second dataset consisted of a subset of the Canadian Heart Health Survey Dataverse \cite{HealthSurvey}. The dataset produced in 1997 contains the data from ten Heart Health Surveys conduced between 1986 and 1992 in Canada. The dataset is also much more extensive than our starting set containing 23129 rows and 266 variables of which we only used a smaller subset to produce our CDS.
-
+This dataset also features no missing values, contains 270 rows with 14 attributes, and its primary purpose is to be used for prediction of heart disease by using the first 13 attributes as predictors of the 14\textsuperscript{th} attribute.
+Our second dataset consisted of a subset of the Canadian Heart Health Survey Dataverse \cite{HealthSurvey}. The dataset produced in 1997 contains the data from ten Heart Health Surveys conducted between 1986 and 1992 in Canada. The dataset is also much more extensive than our starting set containing 23129 rows and 266 attributes of which we only used a smaller subset to produce our CDSS model.
+Our smaller subset consisted of examining only 20 attributes and a snapshot of some of the attributes examined can be seen in Table \ref{table_heartsurvey}.
 
 \begin{table}[!ht]
 \begin{center} 
-<<<<<<< HEAD
 \caption{Statlog Heart Dataset \cite{StatlogHeart}}
-=======
-\caption{Statlog Heart Data Set}
->>>>>>> origin/master
 \begin{tabular}{ |P{0.3cm}|P{4.0cm}|P{1.4cm}|P{1.4cm}|}
 \hline 
 \#	&	Attribute										& Abbreviation & Data Type\\
@@ -139,42 +135,45 @@ Our second dataset consisted of a subset of the Canadian Heart Health Survey Dat
 
 \begin{table}[!ht]
 \begin{center} 
-\caption{Heart Survey Dataset \cite{}}
+\caption{Heart Survey Dataset \cite{HealthSurvey}}
 \begin{tabular}{ |P{0.3cm}|P{4.0cm}|P{1.4cm}|}
 \hline
 \#	&	Attribute										& Abbreviation\\
 \hline
-1	&	Age Grouped in 10 Year Segments											& gpage2\\
+1	&	Age Grouped in 10 Year Segments					& gpage2\\
  \hline
 2 	&	Sex											& sex\\
 \hline
-3	&	BMI Categories							& bmicat\\
+3	&	BMI Categories								& bmicat\\
 \hline
 \multicolumn{1}{|c|}{\vdots} 	&	\multicolumn{1}{c|}{\vdots} 	& \multicolumn{1}{c|}{\vdots}\\
 \hline
-35 	&	Other Heart Disease							& othhd\\
+18 	&	Other Heart Disease								& othhd\\
  \hline
-36	&	Ever Had a Heart Attack?								& everha\\
+19	&	Ever Had a Heart Attack?							& everha\\
  \hline
-37 	&	Ever Had a Stroke?								& everstr\\
+20 	&	Ever Had a Stroke?								& everstr\\
  \hline
 \end{tabular}
-\label{table_statlogheart}
+\label{table_heartsurvey}
 \end{center}
 \end{table}
 
 \section{Methodology} 
 For the first dataset, Table \ref{table_statlogheart}, we simplified our analysis by only using data that was already categorical since categorizing the numerical data could be considered subjective.
 The main attributes we considered were sex, thal, hdap, cpt, recg, eia, sop, and fbs.
-First, we created an undirected Bayesian Network as seen in Fig. \ref{fig_statloghealth_undirected}. 
+First, we created an undirected BN as seen in Fig. \ref{fig_statloghealth_undirected}. 
 We quickly realized that this would of no use to us because we cannot see the direct dependencies between attributes.
-This led us to creating a directed Bayesian Network as seen in Fig. \ref{fig_statloghealth}.
-The Bayesian Network we created uses the \textit{Hill Climbing} approach to ensure in a completely directed network.
-From this directed Bayesian Network, Fig. \ref{fig_statloghealth}, we are able to see how certain attributes depend upon each other.
-Since the first dataset, Table \ref{table_statlogheart}, we looked at was too small, we took a look at another repository 
-\section{Validation and Evaluation}
+This led us to creating a directed BN as seen in Fig. \ref{fig_statloghealth}.
+The BN we created uses the \textit{Hill Climbing} approach to ensure in a completely directed network.
+From this directed BN, Fig. \ref{fig_statloghealth}, we are able to see how certain attributes depend upon each other.
+Since the first dataset, Table \ref{table_statlogheart}, was too small, we looked at another dataset and took a subset of the data, Table \ref{table_heartsurvey}, to perform further analysis.
+This dataset comprised mainly of categorical data so it allowed us to have a large amount of data even after omitting numerical data.
 
 \section{Results and Discussion}
+In this section, we discuss the results of our constructed BNs as well as our ROC curve.
+\subsection*{Table \ref{table_statlogheart}: Undirected Bayesian Network}
+Using the undirected BN as seen in Fig. \ref{fig_statloghealth_undirected}, we were able to run tests against this model and determine the highest and lowest factors for heart disease.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\columnwidth]{bn_statloghealth_undirected}
@@ -182,6 +181,65 @@ Since the first dataset, Table \ref{table_statlogheart}, we looked at was too sm
 \label{fig_statloghealth_undirected}
 \end{figure}
 
+We discovered that the highest probability for heart disease followed conditions as seen in Table \ref{table_hdap_highest}.
+
+\begin{table}[!ht]
+\begin{center} 
+\caption{Highest Heart Disease Probability (99.84\%)}
+\begin{tabular}{|P{1.4cm}|P{4.5cm}|}
+\hline 
+Abbreviation & Value \\
+\hline
+sex & Female\\
+\hline
+cpt & Asymptomatic\\
+\hline
+fbs & Fasting Blood Sugar $>$ 120 mg/dl\\
+\hline
+recg & Showing Probable/Definite Left Ventricular Hypertrophy by Estes’ Criteria\\
+\hline
+eia & Yes\\
+\hline
+sop & Flat\\
+\hline
+thal & Reversible defect\\
+\hline
+\end{tabular}
+\label{table_hdap_highest}
+\end{center}
+\end{table}
+
+We were also able to discover that the lowest probability for heart disease followed conditions as seen in Table \ref{table_hdap_lowest}.
+
+\begin{table}[!ht]
+\begin{center} 
+\caption{Lowest Heart Disease Probability (0.063\%)}
+\begin{tabular}{|P{1.4cm}|P{4.0cm}|}
+\hline 
+Abbreviation & Value \\
+\hline
+sex & Female\\
+\hline
+cpt & Typical Angina\\
+\hline
+fbs & Fasting Blood Sugar $<$ 120 mg/dl\\ 
+\hline
+recg &  Normal\\
+\hline
+eia & Yes\\
+\hline
+sop & Upsloping\\
+\hline
+thal & Normal\\
+\hline
+\end{tabular}
+\label{table_hdap_lowest}
+\end{center}
+\end{table}
+
+
+\subsection*{Table \ref{table_statlogheart}: Directed Bayesian Network}
+We create a directed BN so we can observe direct dependence upon nodes.
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\columnwidth]{bn_statloghealth}
@@ -189,10 +247,15 @@ Since the first dataset, Table \ref{table_statlogheart}, we looked at was too sm
 \label{fig_statloghealth}
 \end{figure}
 
+
+\subsection*{Table \ref{table_heartsurvey}: Directed Bayesian Network}
+
+For our second dataset we created the network seen in Fig. \ref{fig_heartsurvey}. This BN contains 20 nodes and 46 arcs with all of them being of the directed variety. The markov blanket size which indicates the number parents, children and parents of the children of the node was 5.50. 
+
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=\textwidth]{bn_heartsurvey.pdf}
-\caption{Directed Bayesian Network Using Heart Survey}
+\caption{Directed Bayesian Network Using Table \ref{table_heartsurvey} Dataset}
 \label{fig_heartsurvey}
 \end{figure*}
 
