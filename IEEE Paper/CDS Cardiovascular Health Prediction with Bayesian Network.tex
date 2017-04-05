@@ -223,7 +223,7 @@ sex & Female\\
 \hline
 cpt & Typical Angina\\
 \hline
-fbs & Fasting Blood Sugar $<$ 120 mg/dl\\
+fbs & Fasting Blood Sugar $<$ 120 mg/dl\\ 
 \hline
 recg &  Normal\\
 \hline
@@ -238,12 +238,16 @@ thal & Normal\\
 \end{center}
 \end{table}
 
+
+For our second dataset we created the network seen in Fig. \ref{fig_heartsurvey}. This Baysian network contains 37 nodes and 75 arcs with all of them being of the directed variety. The markov blanket size which indicates the number parents, children and parents of the children of the node was 5.19. 
+
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=\columnwidth]{bn_statloghealth}
 \caption{Directed Bayesian Network}
 \label{fig_statloghealth}
 \end{figure}
+
 
 \begin{figure*}[!ht]
 \centering
