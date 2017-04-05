@@ -46,11 +46,32 @@ testBn <- bn.fit(bn.hc, train, method='bayes')
 #plot(cv.bic, cv.bde, xlab = c("BIC", "BDe"))
 
 #get level values
-testQuery = "GPAGE2 == ";
-areaQuery = "AREA == ";
+GPAGE2_Query = "GPAGE2 == ";
+AREA_Query = "AREA == ";
+highest = 0
+condition1 <- ''
+condition2 <- ''
 
 lv_AREA = strsplit(levels(filterData$AREA), " ")
 lv_GPAGE2 = strsplit(levels(filterData$GPAGE2), " ")
+# for(x_gpage2 in 1:length(lv_GPAGE2)){
+#   lv_combn_GPAGE2 = combn(lv_GPAGE2, x_gpage2)
+#   #col
+#   for(i in 1:dim(lv_combn_GPAGE2)[2]){
+#     #row
+#     for(j in 1:dim(lv_combn_GPAGE2)[1]){
+#       if(j < dim(lv_combn_GPAGE2)[1]){
+#         GPAGE2_Query <- paste(GPAGE2_Query, "\'", lv_combn_GPAGE2[j, i], "\'", '| GPAGE2 == ', sep="")
+#       }else{
+#         GPAGE2_Query <- paste(GPAGE2_Query, "\'",lv_combn_GPAGE2[j, i], "\'", sep="")
+#       }
+#     }
+#     tempScore <- cpquery(testBn, event = (EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"), evidence = (eval(parse(text=GPAGE2_Query))), n=1000000)
+#     print(tempScore)
+#     print(GPAGE2_Query)
+#     GPAGE2_Query = "GPAGE2 == ";
+#   }
+# }
 
 for(x_area in 1:length(lv_AREA)){
   lv_combn_AREA = combn(lv_AREA, x_area)
@@ -59,9 +80,9 @@ for(x_area in 1:length(lv_AREA)){
     #row
     for(j in 1:dim(lv_combn_AREA)[1]){
       if(j < dim(lv_combn_AREA)[1]){
-        AREA_Query <- paste(areaQuery, "\'", lv_combn_AREA[j, i], "\'", '| AREA == ', sep="")
+        AREA_Query <- paste(AREA_Query, "\'", lv_combn_AREA[j, i], "\'", '| AREA == ', sep="")
       }else{
-        AREA_Query <- paste(areaQuery, "\'",lv_combn_AREA[j, i], "\'", sep="")
+        AREA_Query <- paste(AREA_Query, "\'",lv_combn_AREA[j, i], "\'", sep="")
       }
     }
     for(x_gpage2 in 1:length(lv_GPAGE2)){
@@ -71,21 +92,32 @@ for(x_area in 1:length(lv_AREA)){
         #row
         for(j in 1:dim(lv_combn_GPAGE2)[1]){
           if(j < dim(lv_combn_GPAGE2)[1]){
-            GPAGE2_Query <- paste(testQuery, "\'", lv_combn_GPAGE2[j, i], "\'", '| GPAGE2 == ', sep="")
+            GPAGE2_Query <- paste(GPAGE2_Query, "\'", lv_combn_GPAGE2[j, i], "\'", '| GPAGE2 == ', sep="")
           }else{
-            GPAGE2_Query <- paste(testQuery, "\'",lv_combn_GPAGE2[j, i], "\'", sep="")
+            GPAGE2_Query <- paste(GPAGE2_Query, "\'",lv_combn_GPAGE2[j, i], "\'", sep="")
           }
         }
         tempScore <- cpquery(testBn, event = (EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"), evidence = ((eval(parse(text=GPAGE2_Query))) & (eval(parse(text=AREA_Query))) & (BMICAT == ">=35" | BMICAT == "30-34.9") & (SYSCAT == ">=160" | SYSCAT == "150-159") & (DIASCAT== ">=100" | DIASCAT== "95-99" | DIASCAT== "90-94") & TCHOLCAT == ">=6.2 MMOL/L" & SALTFOOD == "OFTEN" ), n=1000000)
-        print(tempScore)
-        print(GPAGE2_Query)
-        print(AREA_Query)
+        if(tempScore > highest){
+          print(tempScore)
+          print(highest)
+          print(GPAGE2_Query)
+          print(AREA_Query)
+          highest = tempScore;
+          condition1 <- GPAGE2_Query
+          condition2 <- AREA_Query
+        }
+        #print(tempScore)
+        #print(GPAGE2_Query)
+        #print(AREA_Query)
         GPAGE2_Query = "GPAGE2 == ";
       }
     }
     AREA_Query = "AREA == ";
   }
 }
+
+cpquery(testBn, event = (EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"), evidence = (BMICAT), n=1000000, method = "lw")
 
 #tempScore <- cpquery(testBn, event = (EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"), evidence = ((eval(parse(text=testQuery))) & (BMICAT == ">=35" | BMICAT == "30-34.9") & (SYSCAT == ">=160" | SYSCAT == "150-159") & (DIASCAT== ">=100" | DIASCAT== "95-99" | DIASCAT== "90-94") & TCHOLCAT == ">=6.2 MMOL/L" & SALTFOOD == "OFTEN" ), n=1000000)
 
@@ -98,7 +130,7 @@ for(x_area in 1:length(lv_AREA)){
 
 
 
-table(cpdist(testBn, "BMICAT", EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"))
+#table(cpdist(testBn, "BMICAT", EVERHA == "YES" | EVERSTR == "YES" | OTHHD == "YES"))
 
 
 
